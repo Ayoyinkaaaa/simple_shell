@@ -6,8 +6,9 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 /**
+ * main - main
  *
- *
+ * Return: Always Success
  *
  */
 
