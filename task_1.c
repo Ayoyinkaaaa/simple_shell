@@ -19,6 +19,7 @@ int main()
 	char *buffer, *argv[] = {NULL};
 	size_t buff_size = 1024, c;
 	int stat;
+	pid_t child;
 
 	buffer = malloc(sizeof(char) * buff_size);
 	if (buffer == NULL)
@@ -43,7 +44,7 @@ int main()
 		}
 	}
 	buffer[c - 1] = '\0';
-	pid_t child = fork();
+	child = fork();
 	if (child == -1)
 	{
 		perror("Error:");
