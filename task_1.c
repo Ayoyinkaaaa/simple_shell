@@ -17,7 +17,8 @@ int main()
 	while (1)
 	{
 	char *buffer, *argv[] = {NULL};
-	size_t buff_size = 1024, c;
+	size_t buff_size = 1024;
+	ssize_t c;
 	int stat;
 	pid_t child;
 
