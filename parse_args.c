@@ -7,8 +7,10 @@
  */
 void parse_arguments(char *input, char *argv[])
 {
-	int arg count = 0;
-	char *token = strtok(input, " ");
+	int arg_count = 0;
+	char *token;
+
+       	token = strtok(input, " ");
 
 	while (token != NULL && arg_count < MAX_ARGS - 1)
 	{
@@ -26,11 +28,11 @@ void parse_arguments(char *input, char *argv[])
  * parses them and execute them in child processes
  * Return: 0
  */
-
 int main(void)
 {
 	char input[BUFF_SIZE];
 	char *argv[MAX_ARGS];
+	pid_t pid;
 
 	while (1)
 	{
@@ -47,15 +49,15 @@ int main(void)
 
 		parse_arguments(input, argv);
 
-		pid_t pid = fork();
+		 pid = fork();
 
 		if
-			(pid == -1);
+			(pid == -1)
 		{
 		perror("fork");
 		}
 		else if
-			(pid == 0);
+			(pid == 0)
 		{
 			execvp(argv[0], argv);
 			perror("exec");
