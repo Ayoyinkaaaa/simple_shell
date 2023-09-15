@@ -11,7 +11,6 @@
 #include <sys/wait.h>
 
 #define MAX_ARGS 100
-#define BUFF_SIZE 1024
 
 
 void parse_arguments(char *input, char *argv[]);
