@@ -17,4 +17,6 @@
 void parse_arguments(char *input, char *argv[]);
 int main (void);
 bool is_command_in_path(void);
+void exec_comm(char *buffer, char *argv[]);
+int command_exits(const char *buffer);
 #endif
