@@ -32,7 +32,13 @@ void exec_comm(char *buffer, char *argv[])
 {
 	int stat;
 	pid_t child;
+	char *envp[] = {"PATH=/bin:/usr/bin", "HOME=/home/user", NULL};
 
+	if (strcmp(buffer, "env") == 0)
+	{
+		env_func();
+		return;
+	}
 	if (command_exists(buffer) != 0)
 	{
 		write(STDOUT_FILENO, "Command does not exist\n", 24);
@@ -47,7 +53,7 @@ void exec_comm(char *buffer, char *argv[])
 	}
 	if (child == 0)
 	{
-		if (execve(buffer, argv, NULL) == -1)
+		if (execve(buffer, argv, envp) == -1)
 		{
 			perror("Error:");
 			free(buffer);
@@ -104,27 +110,32 @@ int main(void)
 		perror("Error allocating memory:");
 		return (1);
 	}
-	write(STDOUT_FILENO, "#simpleshell$ ", 14);
-	c = getline(&buffer, &BUFF_SIZE, stdin);
-	if (c == -1)
-	{
-		if (feof(stdin))
+		write(STDOUT_FILENO, "$ ", 2);
+		c = getline(&buffer, &BUFF_SIZE, stdin);
+		if (c == -1)
 		{
-			free(buffer);
-			break;
+			if (feof(stdin))
+			{
+				free(buffer);
+				write(STDOUT_FILENO, "\n", 2);
+				break;
+			}
+			else
+			{
+				perror("Error reading input:");
+				free(buffer);
+				return (1);
+			}
 		}
-		else
-		{
-			perror("Error reading input:");
-			free(buffer);
-			return (1);
-		}
-	}
 	buffer[c - 1] = '\0';
+	if (strcmp(buffer, "exit") == 0)
+	{
+		free(buffer);
+		break;
+	}
 	parse_arguments(buffer, argv);
 	exec_comm(buffer, argv);
 	free(buffer);
 	}
-	write(STDOUT_FILENO, "\n", 2);
 	return (0);
 }
