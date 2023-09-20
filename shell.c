@@ -112,22 +112,19 @@ int main(void)
 	}
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "$ ", 2);
-	c = getline(&buffer, &BUFF_SIZE, stdin);
+	c = get_line(buffer);
 	if (c == -1)
 	{
-		if (feof(stdin))
-		{
-			free(buffer);
-			if (isatty(STDIN_FILENO))
-				write(STDOUT_FILENO, "\n", 2);
-			break;
-		}
-		else
-		{
-			perror("Error reading input:");
-			free(buffer);
-			return (1);
-		}
+		perror("Error reading input:");
+		free(buffer);
+		return (1);
+	}
+	if (c == 0)
+	{
+		free(buffer);
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "\n", 2);
+		break;
 	}
 	buffer[c - 1] = '\0';
 	if (strcmp(buffer, "exit") == 0)
