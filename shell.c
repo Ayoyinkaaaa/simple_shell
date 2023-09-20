@@ -110,23 +110,25 @@ int main(void)
 		perror("Error allocating memory:");
 		return (1);
 	}
+	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "$ ", 2);
-		c = getline(&buffer, &BUFF_SIZE, stdin);
-		if (c == -1)
+	c = getline(&buffer, &BUFF_SIZE, stdin);
+	if (c == -1)
+	{
+		if (feof(stdin))
 		{
-			if (feof(stdin))
-			{
-				free(buffer);
+			free(buffer);
+			if (isatty(STDIN_FILENO))
 				write(STDOUT_FILENO, "\n", 2);
-				break;
-			}
-			else
-			{
-				perror("Error reading input:");
-				free(buffer);
-				return (1);
-			}
+			break;
 		}
+		else
+		{
+			perror("Error reading input:");
+			free(buffer);
+			return (1);
+		}
+	}
 	buffer[c - 1] = '\0';
 	if (strcmp(buffer, "exit") == 0)
 	{
