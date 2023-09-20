@@ -21,4 +21,5 @@ void exec_comm(char *buffer, char *argv[]);
 int command_exits(const char *buffer);
 void env_func(void);
 ssize_t get_line(char *buf, size_t nbytes);
+char *handle_path(char *comm);
 #endif

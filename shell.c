@@ -32,14 +32,16 @@ void exec_comm(char *buffer, char *argv[])
 {
 	int stat;
 	pid_t child;
-	char *envp[] = {"PATH=/bin:/usr/bin", "HOME=/home/user", NULL};
+	char *command;
 
 	if (strcmp(buffer, "env") == 0)
 	{
 		env_func();
 		return;
 	}
-	if (command_exists(buffer) != 0)
+	command = handle_path(buffer);
+	printf("%s", command);
+	if (command_exists(command) != 0)
 	{
 		write(STDOUT_FILENO, "Command does not exist\n", 24);
 		return;
@@ -53,7 +55,7 @@ void exec_comm(char *buffer, char *argv[])
 	}
 	if (child == 0)
 	{
-		if (execve(buffer, argv, envp) == -1)
+		if (execve(command, argv, environ) == -1)
 		{
 			perror("Error:");
 			free(buffer);
