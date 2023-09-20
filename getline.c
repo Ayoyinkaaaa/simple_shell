@@ -16,11 +16,9 @@
  *
  */
 
-long int get_line(char *buf)
+ssize_t get_line(char *buf, size_t nbytes)
 {
-	size_t nbytes;
 	ssize_t bytes_read;
-	nbytes = sizeof(buf);
 	bytes_read = read(STDIN_FILENO, buf, nbytes);
 	return(bytes_read);
 }

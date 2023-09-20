@@ -112,7 +112,7 @@ int main(void)
 	}
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "$ ", 2);
-	c = get_line(buffer);
+	c = get_line(buffer, BUFF_SIZE);
 	if (c == -1)
 	{
 		perror("Error reading input:");
