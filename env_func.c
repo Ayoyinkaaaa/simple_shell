@@ -7,6 +7,11 @@
 #include <sys/wait.h>
 #include "shell.h"
 
+/**
+ * env_func - main
+ *
+ */
+
 void env_func(void)
 {
 	int i;
