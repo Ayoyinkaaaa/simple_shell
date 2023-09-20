@@ -102,6 +102,7 @@ int main(void)
 	char *buffer, *argv[MAX_ARGS];
 	size_t BUFF_SIZE = 1024;
 	ssize_t c;
+	int exit_stat;
 
 	buffer = malloc(sizeof(char) * BUFF_SIZE);
 	if (buffer == NULL)
@@ -126,12 +127,13 @@ int main(void)
 		break;
 	}
 	buffer[c - 1] = '\0';
-	if (strcmp(buffer, "exit") == 0)
-	{
-		free(buffer);
-		break;
-	}
 	parse_arguments(buffer, argv);
+	if (strcmp(argv[0], "exit") == 0 && argv[1] != NULL)
+	{
+		exit_stat = atoi(argv[1]);
+		free(buffer);
+		exit(exit_stat);
+	}
 	exec_comm(buffer, argv);
 	free(buffer);
 	}
