@@ -15,11 +15,12 @@
 extern char **environ;
 
 void parse_arguments(char *input, char *argv[]);
-int main (void);
+int main(void);
 void exec_comm(char *buffer, char *argv[]);
 int command_exits(const char *buffer);
 void env_func(void);
 ssize_t get_line(char *buf, size_t nbytes);
 int iscdCommand(char *command);
 int cdCommand(char *directory);
+void exit_func(char *buffer, char *stat_num);
 #endif
