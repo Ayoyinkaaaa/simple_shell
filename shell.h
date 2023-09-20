@@ -20,13 +20,6 @@ void exec_comm(char *buffer, char *argv[]);
 int command_exits(const char *buffer);
 void env_func(void);
 ssize_t get_line(char *buf, size_t nbytes);
-<<<<<<< HEAD
-char *handle_path(char *comm);
-=======
 int iscdCommand(char *command);
 int cdCommand(char *directory);
-char *get_location(char *command);
-char *search_in_directory(const char *directory, const char *command);
-char *search_in_path(const char *path, const char *command);
->>>>>>> 068cf4b95211254397b1a61c30de5d9b0c3a7828
 #endif
