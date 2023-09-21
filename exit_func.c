@@ -20,7 +20,15 @@ void exit_func(char *buffer, char *stat_num)
 {
 	int exit_stat;
 
-	exit_stat = atoi(stat_num);
-	free(buffer);
-	exit(exit_stat);
+	if (stat_num == NULL)
+	{
+		free(buffer);
+		exit(0);
+	}
+	else
+	{
+		exit_stat = atoi(stat_num);
+		free(buffer);
+		exit(exit_stat);
+	}
 }

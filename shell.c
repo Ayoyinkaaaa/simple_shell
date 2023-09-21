@@ -127,7 +127,7 @@ int main(void)
 	}
 	buffer[c - 1] = '\0';
 	parse_arguments(buffer, argv);
-	if (strcmp(argv[0], "exit") == 0 && argv[1] != NULL)
+	if (strcmp(argv[0], "exit") == 0)
 	{
 		exit_func(buffer, argv[1]);
 	}
