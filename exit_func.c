@@ -28,6 +28,18 @@ void exit_func(char *buffer, char *stat_num)
 	else
 	{
 		exit_stat = atoi(stat_num);
+		if (exit_stat == 0)
+		{
+			exit(exit_stat);
+			perror("Error");
+			free(buffer);
+		}
+		if (exit_stat < 0)
+		{
+			exit(exit_stat);
+			perror("Error");
+			free(buffer);
+		}
 		free(buffer);
 		exit(exit_stat);
 	}
