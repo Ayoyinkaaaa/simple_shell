@@ -1,28 +1,21 @@
 #include "shell.h"
-
-
-/**
- * iscdCommand - check if the command is "cd"
- * @command: command to check
- * This function checks if the provided command is "cd"
- * Return: 1 if the command is "cd", 0 otherwise.
- */
-int iscdCommand(char *command)
-{
-	return (strcmp(command, "cd") == 0);
-}
-
+#include "limits.h"
 /**
  * cdCommand - Execute the cd command.
  * @directory: directory to change.
- *
  * Return: 1 if successful and 0 if otherwise.
  */
 int cdCommand(char *directory)
 {
-	char *previousDirectory = NULL;
+	char previousDirectory[PATH_MAX];
+	char currentDirectory[PATH_MAX];
 
-	if (directory == NULL)
+	if (getcwd(currentDirectory, sizeof(previousDirectory)) == NULL)
+	{
+		perror("getcwd");
+		return (0);
+	}
+	if (directory == NULL || *directory  == '\0')
 	{
 		directory = getenv("HOME");
 	}
@@ -30,21 +23,27 @@ int cdCommand(char *directory)
 	{
 		if (previousDirectory != NULL)
 		{
-			directory = previousDirectory;
+			directory = (char *)previousDirectory;
 		}
 		else
 		{
+			write(STDERR_FILENO, "cd: No previous directory stored.\n",
+			strlen("cd: No previous directory stored.\n"));
 			return (0);
 		}
 	}
-
 	if (chdir(directory) == 0)
 	{
-		setenv("PWD", directory, 1);
+		if (setenv("PWD", directory, 1) == -1)
+		{
+			perror("setenv");
+			return (0);
+		}
 		return (1);
 	}
 	else
 	{
+		perror("chdir");
 		return (0);
 	}
 }
