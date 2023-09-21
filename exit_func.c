@@ -18,29 +18,13 @@
 
 void exit_func(char *buffer, char *stat_num)
 {
-	int exit_stat;
+	int exit_stat = 0;
 
-	if (stat_num == NULL)
-	{
-		free(buffer);
-		exit(0);
-	}
-	else
+	if (stat_num != NULL)
 	{
 		exit_stat = atoi(stat_num);
-		if (exit_stat == 0)
-		{
-			exit(exit_stat);
-			perror("Error");
-			free(buffer);
-		}
-		if (exit_stat < 0)
-		{
-			exit(exit_stat);
-			perror("Error");
-			free(buffer);
-		}
-		free(buffer);
-		exit(exit_stat);
 	}
+
+	free(buffer);
+	exit(exit_stat);
 }
