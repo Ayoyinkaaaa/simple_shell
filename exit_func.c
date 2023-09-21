@@ -18,7 +18,7 @@
 
 void exit_func(char *buffer, char *stat_num)
 {
-	int exit_stat = 0;
+	int exit_stat = -1;
 
 	if (stat_num != NULL)
 	{
