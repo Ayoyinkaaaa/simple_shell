@@ -18,12 +18,11 @@
 int command_exists(const char *buffer)
 {
 	return (access(buffer, X_OK));
-} 
+}
 
 /**
  * exec_comm - main
  * @buffer: input
- * 
  * @argv: input
  */
 void exec_comm(char *buffer, char *argv[])
@@ -124,7 +123,6 @@ int main(void)
 		break;
 	}
 	buffer[c - 1] = '\0';
-	non_interactive();
 	parse_arguments(buffer, argv);
 	if (strcmp(argv[0], "exit") == 0)
 	{
