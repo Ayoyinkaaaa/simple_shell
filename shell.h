@@ -29,4 +29,5 @@ int iscdCommand(char *command);
 int cdCommand(char *directory);
 void exit_func(char *buffer, char *stat_num);
 
+void non_interactive(void);
 #endif
